@@ -1,0 +1,349 @@
+<head>
+<meta charset="utf-8">
+<style> /* set the CSS */
+
+body { font: 12px Arial;}
+
+path { 
+    stroke: blue;
+    //stroke-width: 1;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+.background {
+  fill: none;
+  pointer-events: all;
+}
+.province {
+        fill: #fff;
+        stroke: #000;
+        stroke-width: 1px;
+    }
+	
+    .province:hover {
+        fill: #666;
+    }
+    .hidden {
+        display: none;
+    }
+    div.tooltip {
+        color: #222;
+        background-color: #fff;
+        padding: .5em;
+        text-shadow: #f5f5f5 0 1px 0;
+        border-radius: 2px;
+        opacity: 0.9;
+        position: absolute;
+    }
+body { font: 12px Arial;}
+
+path { 
+    stroke: blue;
+   // stroke-width: 1;
+    fill: none;
+}
+
+
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    //stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+svg {
+  font: 10px sans-serif;
+}
+ 
+ 
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.y.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+}
+</style>
+</head>
+<body>
+<h2><center>Text Visualization- Huffington</center></h2>
+<script src="d3.v3.min.js"></script>
+<div style="float:left;position:relative;margin-left:-5px;">
+<script>
+var colors=["#0000FF","#8A2BE2","","#A52A2A","#DEB887","#5F9EA0","","#7FFF00","#D2691E","#6495ED","","#DC143C","#00FFFF","","#00008B","#008B8B","#B8860B","#006400","#E9967A","#8FBC8F","#483D8B","#9400D3",
+			"#FF5349","#FDBCB4","#EA7E5D","#FF7538","#FF8243","#CD9575","#DEAA88","#FFBD88","#EFDBC5","#8A795D","#FCD975","#F0E891","#FDFC74","#C5E384","#A8E4A0","#71BC78","#1CAC78","#3BB08F",
+			"#158078","#77DDE7","","","#199EBD","#77DDE7","#199EBD","#9ACEEB","#2B6CC4","#B0B7C6","#979AAA","","#7442C8","#926EAE","#C364C5","#8E4585","#FF48D0","#6E5160","#F664AF","#F75394","#FDD7E4"];
+
+
+// Set the dimensions of the canvas / graph
+var margin = {top: 10, right: 10, bottom: 100, left: 40},
+    margin2 = {top: 430, right: 10, bottom: 20, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom,
+    height2 = 500 - margin2.top - margin2.bottom;
+	
+
+// Parse the date / time
+var parseDate2 = d3.time.format("%m-%Y").parse;
+
+// Set the ranges
+var x = d3.time.scale().range([0, width]),
+    x2 = d3.time.scale().range([0, width]),
+    y = d3.scale.linear().range([height, 0]),
+    y2 = d3.scale.linear().range([height2, 0]);
+
+// Define the axes
+var xAxis = d3.svg.axis().scale(x).orient("bottom"),
+    xAxis2 = d3.svg.axis().scale(x2).orient("bottom"),
+    yAxis = d3.svg.axis().scale(y).orient("left");
+	
+var brush = d3.svg.brush()
+    .x(x2)
+    .on("brush", brush);
+
+	var wordData=["iraq","barack obama","afghanistan","new york","new york times","california","gop","george w. bush","wall street","john mccain",
+"supreme court",
+"iran",
+"china",
+"mitt romney",
+"texas",
+"republican party",
+"hillary clinton",
+"israel",
+"middle east",
+"florida",
+"tea party",
+"europe",
+"bill clinton",
+"sarah palin",
+"medicare",
+"washington post",
+"christian",
+"democratic party",
+"russia",
+"pakistan",
+"ohio",
+"vietnam",
+"ronald reagan",
+"massachusetts",
+"british",
+"chicago",
+"social security",
+"arizona",
+"new york city",
+"d.c.",
+"reagan",
+"pentagon",
+"virginia",
+"fox news",
+"iowa",
+"jewish",
+"european",
+"syria",
+"world war ii",
+"pennsylvania",
+];
+var tooltip = d3.select('body').append('div')
+            .attr('class', 'hidden tooltip');
+			
+// Define the line
+var valueline = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.Frequency); });
+
+var valueline2 = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.Frequency); });
+    
+// Adds the svg canvas
+var svg = d3.select("body")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+    
+svg.append("defs").append("clipPath")
+    .attr("id", "clip")
+  .append("rect")
+    .attr("width", width)
+    .attr("height", height);
+ ""
+var focus = svg.append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      
+var context = svg.append("g")
+  .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+  
+  var dataAll={};
+  
+  var color=d3.scale.category20();
+  
+  
+  var dataArray=[];
+  var i=0;
+  d3.csv("MonthlyData-Huffington.csv", function(error, data) 
+	{    
+	  data.forEach(function(d) {
+		if(dataAll[d.Word]==undefined)
+			dataAll[d.Word]=[];
+		dataAll[d.Word].push(d);
+	  });
+	  
+	  for(var statename in dataAll){
+	  dataAll[statename].forEach(function(d) {
+		d.date = parseDate2(d.month+"-"+d.Year);
+		d.Frequency = +d["Frequency"];
+		//    dataTX.push(d);
+	  });
+
+
+	  dataAll[statename].sort(function(a,b){
+		if (a.date<b.date)
+			return -1;
+		else if (a.date>b.date)
+			return 1;
+		else
+			return 0;
+	  })  
+	  }
+	  // Scale the range of the data
+		x.domain(d3.extent(dataAll["iraq"], function(d) { return d.date; }));
+		y.domain([0, 650]);
+		x2.domain(x.domain());
+		y2.domain(y.domain());
+		
+		var dataArray=[];
+		for(var i=0;i<wordData.length;i++){
+				
+			dataArray.push(dataAll[wordData[i]]);
+			// Add the valueline path.
+		
+			
+		}
+		
+		//dataArray.push(dataAll[wordData[0]]);
+		debugger;
+		i++;
+		focus.selectAll(".line")
+			.data(dataArray).enter()
+			.append("path")
+			.attr("class", "line")
+			.attr("stroke-width",1)
+			.attr("d",function(d){
+				return valueline(d);
+			})
+			.attr("clip-path", "url(#clip)")
+			.on("mouseover",function(d1){
+				var mouse = d3.mouse(svg.node()).map(function(d) {
+                     return parseInt(d);
+                    });
+					var xCoordinate = d3.mouse(this)[0];
+					var domainX = x.invert(xCoordinate);
+					var Year=1900+domainX.getYear();
+					var yCoordinate = d3.mouse(this)[1];
+					var domainY = y.invert(yCoordinate);
+					var rate=domainY.toFixed(1);
+					
+                    tooltip.classed('hidden', false)
+                        .attr('style', 'left:' + (mouse[0]) +
+                                'px; top:' + (mouse[1]) + 'px')
+                        .html("Word: "+d1[0].Word+"<br />Year:"+Year+"<br />Rate:"+rate);
+				focus.selectAll(".line")
+					.attr("stroke-opacity",function(d2){
+						if(d1==d2)
+							return 1;
+						else 
+							return 0.01;
+					});
+			})
+			.on("mouseout",function(d1){
+				tooltip.classed('hidden',true);
+				focus.selectAll(".line")
+					.attr("stroke-opacity",1);
+			});
+			
+			
+			debugger;
+		// Add the X Axis
+		focus.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis);
+
+		// Add the Y Axis
+		focus.append("g")
+			.attr("class", "y axis")
+			.call(yAxis);
+			
+			context.selectAll(".line")
+			.data(dataArray).enter()
+			.append("path")
+			.attr("class", "line")
+			.attr("stroke-width",1)
+			.attr("d",function(d){
+				return valueline(d);
+			});
+			// Add the X Axis
+		context.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height2 + ")")
+			.call(xAxis2);
+
+		// Add the Y Axis
+		context.append("g")
+        .attr("class", "x brush")
+        .call(brush)
+      .selectAll("rect")
+        .attr("y", -6)
+        .attr("height", height2 + 7);
+		
+		svg.selectAll(".y axis text")  // select all the text elements for the xaxis
+          .attr("transform", function(d) {
+             
+             return "translate(" + this.getBBox().height*-6 + "," + this.getBBox().height + ")";
+         });
+
+//------appending the text-------
+svg.append("text")
+            .attr("text-anchor", "margin-right")  // this makes it easy to centre the text as the transform is applied to the anchor
+            .attr("transform", "rotate(-90)")
+            .attr("y", 45)
+            .attr("x", -180)
+      .attr("dy", "0.71em")
+      .attr("fill", "#000")
+              // text is drawn off the screen top left, move down and out and rotate
+            .text("Frequency");
+
+	});
+	function brush() {
+		x.domain(brush.empty() ? x2.domain() : brush.extent());
+		focus.selectAll("path.line").attr("d",  function(d) {return valueline(d)});
+		focus.select(".x.axis").call(xAxis);
+		focus.select(".y.axis").call(yAxis);
+	}
+</script>
+</div>
+</body>
