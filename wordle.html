@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+<h2><center>Text Visualization- Wikinews</center></h2>
+<div style="float:left;position:relative;margin-left:-5px;">
+<select id="ddlViewBy" onChange="OnSelectedIndexChange()">
+  <option value="0">Select a Year</option>
+  <option value="1">2004</option>
+  <option value="2" >2005</option>
+  <option value="3">2006</option>
+  <option value="4">2007</option>
+  <option value="5" >2008</option>
+  <option value="6">2009</option>
+  <option value="7">2010</option>
+  <option value="8" >2011</option>
+  <option value="9">2012</option>
+  <option value="10">2013</option>
+  <option value="11" >2014</option>
+  <option value="12">2015</option>
+  <option value="12">2016</option>
+  
+</select>
+
+
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
+  
+<style>
+body { font: 12px Arial;}
+
+path { 
+    stroke: blue;
+    //stroke-width: 1;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+.background {
+  fill: none;
+  pointer-events: all;
+}
+.province {
+        fill: #fff;
+        stroke: #000;
+        stroke-width: 1px;
+    }
+	
+    .province:hover {
+        fill: #666;
+		
+    }
+    .hidden {
+        display: none;
+    }
+    div.tooltip {
+        color: #222;
+        background-color: #fff;
+        padding: .5em;
+        text-shadow: #f5f5f5 0 1px 0;
+        border-radius: 2px;
+        opacity: 0.9;
+        position: absolute;
+    }
+body { font: 12px Arial;}
+
+path { 
+    stroke: blue;
+   // stroke-width: 1;
+    fill: none;
+}
+
+
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    //stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+svg {
+  font: 10px sans-serif;
+}
+ 
+ 
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.y.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+}
+</style>
+
+<script>
+// Set the dimensions of the canvas / graph
+var margin = {top: 10, right: 10, bottom: 100, left: 40},
+    margin2 = {top: 430, right: 10, bottom: 20, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom,
+    height2 = 500 - margin2.top - margin2.bottom;
+	
+
+// Set the ranges
+var x = d3.time.scale().range([0, width]),
+    x2 = d3.time.scale().range([0, width]),
+    y = d3.scale.linear().range([height, 0]),
+    y2 = d3.scale.linear().range([height2, 0]);
+
+// Define the axes
+var xAxis = d3.svg.axis().scale(x).orient("bottom"),
+    xAxis2 = d3.svg.axis().scale(x2).orient("bottom"),
+    yAxis = d3.svg.axis().scale(y).orient("left");
+	
+
+
+
+
+    
+// Define the line
+var valueline = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.Frequency); });
+
+var valueline2 = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.Frequency); });
+
+// Adds the svg canvas
+var svg = d3.select("body")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+
+		
+
+  
+  
+</script>
+
+ <script>
+
+//Simple animated example of d3-cloud - https://github.com/jasondavies/d3-cloud
+//Based on https://github.com/jasondavies/d3-cloud/blob/master/examples/simple.html
+
+var tooltip = d3.select('body').append('div')
+            .attr('class', 'hidden tooltip'),
+			active = d3.select(null);
+
+// Encapsulate the word cloud functionality
+function wordCloud(selector) {
+
+    var fill = d3.scale.category20();
+
+    //Construct the word cloud's SVG element
+    var svg1 = d3.select(selector).append("svg")
+        .attr("width", 500)
+        .attr("height", 500)
+        .append("g")
+        .attr("transform", "translate(250,250)");
+
+
+    //Draw the word cloud
+    function draw(words) {
+        var cloud = svg1.selectAll("g text")
+                        .data(words, function(d) { return d.text; })
+
+        //Entering words
+        cloud.enter()
+            .append("text")
+            .style("font-family", "Impact")
+			.attr("val",function(d){return d.text;})
+            .style("fill", function(d, i) { return fill(i); })
+            .attr("text-anchor", "middle")
+            .attr('font-size', 1)
+            .text(function(d) { return d.text; })
+			.on('mousemove', function(d) {
+					var mouse = d3.mouse(svg1.node()).map(function(d) {
+                     return parseInt(d);
+                    });
+                    tooltip.classed('hidden', false)
+                        .attr('style', 'left:' + (mouse[0]) +
+                                'px; top:' + (mouse[1]) + 'px')
+                        .html("Word:"+d.text+"\nFrequency:"+Word_frequency[d.text]);
+                })
+                .on('mouseout', function() {
+                    tooltip.classed('hidden', true);
+                })
+				.on("click", clicked);
+
+        //Entering and existing words
+        cloud
+            .transition()
+                .duration(600)
+                .style("font-size", function(d) { return d.size + "px"; })
+                .attr("transform", function(d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .style("fill-opacity", 1);
+
+        //Exiting words
+        cloud.exit()
+            .transition()
+                .duration(200)
+                .style('fill-opacity', 1e-6)
+                .attr('font-size', 1)
+                .remove();
+    }
+
+
+    //Use the module pattern to encapsulate the visualisation code. We'll
+    // expose only the parts that need to be public.
+    return {
+
+        //Recompute the word cloud for a new set of words. This method will
+        // asycnhronously call draw when the layout has been computed.
+        //The outside world will need to call this function, so make it part
+        // of the wordCloud return value.
+        update: function(words) {
+            d3.layout.cloud().size([500, 500])
+                .words(words)
+                .padding(5)
+                .rotate(function() { return ~~(Math.random() * 2) * 90; })
+                .font("Impact")
+                .fontSize(function(d) { return d.size; })
+                .on("end", draw)
+                .start();
+        }
+    }
+
+}
+function clicked(d) {
+  if (active.node() === this) return reset(d);
+  active.classed("active", false);
+  active = d3.select(this).classed("active", true);
+  console.log(d.text);
+  document.getElementById(d.text).style.display = "";
+	
+}
+
+function reset(d) {
+  active.classed("active", false);
+  active = d3.select(null);
+  document.getElementById(d.value).style.display = "none";
+}
+
+//Some sample data - http://en.wikiquote.org/wiki/Opening_lines
+
+
+var words=[];
+//Prepare one of the sample sentences by removing punctuation,
+// creating an array of words and computing a random size attribute.
+function getWords(i) {
+    return words
+            
+            .map(function(d) {
+                return {text: d, size: 10 + Math.random() * 60};
+            })
+}
+
+//This method tells the word cloud to redraw with a new set of words.
+//In reality the new words would probably come from a server request,
+// user input or some other source.
+function showNewWords(vis, i) {
+    
+	
+    vis.update(getWords(words))
+    //setTimeout(function() { showNewWords(words)}, 2000)	
+}
+
+//Create a new instance of the word cloud visualisation.
+var myWordCloud = wordCloud('body');
+
+//Start cycling through the demo data
+showNewWords(myWordCloud);
+
+
+</script>
+</div>
+
+<script>
+var terms;
+var termMaxMax;
+var sourceList = {};
+var minYear=2006;
+var maxYear=2015;
+
+d3.tsv("wikinews.tsv", function(error, data_) {
+      if (error) throw error;
+    data = data_;
+    
+    terms = new Object();
+    termMaxMax = 1;
+    data.forEach(function(d) {
+        d.source = d["source"];
+        // Process date
+        var curDate = Date.parse(d["time"]);
+        d.date = new Date(d["time"]);
+        var year = d.date.getFullYear();
+        var m = year+'_'+d.date.getMonth();
+		
+        d.m = m;
+         
+        if (year>=minYear && year<=maxYear){
+            // Add source to sourceList
+            if (!sourceList[d.source])
+                sourceList[d.source]=1;
+            else
+                sourceList[d.source]++;    
+        }
+
+        if (d["person"] != ""){
+            var list = d["person"].split("|");
+            for (var i=0; i<list.length;i++){
+                var term = list[i];
+                d[term] = 1;
+                if (!terms[term]){
+                    terms[term] = new Object();
+					terms[term].term=term;
+                    terms[term].max = 0;
+                    terms[term].maxMonth = -100;   // initialized negative
+                    terms[term].category = "person";
+                }    
+                if (!terms[term][m])
+                    terms[term][m] = 1;
+                else{
+                    terms[term][m] ++;
+                    if (terms[term][m]>terms[term].max){
+                        terms[term].max = terms[term][m];
+                        terms[term].maxMonth = m;
+                        if (terms[term].max>termMaxMax)
+                            termMaxMax = terms[term].max;
+                    }    
+                }    
+            }
+        }
+
+        if (d["location"] != "" && d["location"] != 1){
+            var list = d["location"].split("|");
+            for (var i=0; i<list.length;i++){
+                var term = list[i];
+                d[term] = 1;
+                if (!terms[term]){
+                    terms[term] = new Object();
+					terms[term].term=term;
+                    terms[term].max = 0;
+                    terms[term].maxMonth = -100;   // initialized negative
+                    terms[term].category = "location";
+                }    
+                if (!terms[term][m])
+                    terms[term][m] = 1;
+                else{
+                    terms[term][m] ++;
+                    if (terms[term][m]>terms[term].max){
+                        terms[term].max = terms[term][m];
+                        terms[term].maxMonth = m;
+                        if (terms[term].max>termMaxMax)
+                            termMaxMax = terms[term].max;
+                        
+                    }    
+                }    
+            }
+        }
+        if (d["organization"] != "" && d["organization"] != 1){
+            var list = d["organization"].split("|");
+            for (var i=0; i<list.length;i++){
+                var term = list[i];
+                d[term] = 1;
+                if (!terms[term]){
+                    terms[term] = new Object();
+					terms[term].term=term;
+                    terms[term].max = 0;
+                    terms[term].maxMonth = -100;   // initialized negative
+                    terms[term].category = "organization";
+                }    
+                if (!terms[term][m])
+                    terms[term][m] = 1;
+                else{
+                    terms[term][m] ++;
+                    if (terms[term][m]>terms[term].max){
+                        terms[term].max = terms[term][m];
+                        terms[term].maxMonth = m;
+                        if (terms[term].max>termMaxMax)
+                            termMaxMax = terms[term].max;
+                        
+                    }    
+                }    
+            }
+        }
+        if (d["miscellaneous"] != "" && d["miscellaneous"] != 1){
+            var list = d["miscellaneous"].split("|");
+            for (var i=0; i<list.length;i++){
+                var term = list[i];
+                d[term] = 1;
+                if (!terms[term]){
+                    terms[term] = new Object();
+					terms[term].term=term;
+                    terms[term].max = 0;
+                    terms[term].maxMonth = -100;   // initialized negative
+                    terms[term].category = "miscellaneous";
+                }    
+                if (!terms[term][m])
+                    terms[term][m] = 1;
+                else{
+                    terms[term][m] ++;
+                    if (terms[term][m]>terms[term].max){
+                        terms[term].max = terms[term][m];
+                        terms[term].maxMonth = m;
+                        if (terms[term].max>termMaxMax)
+                            termMaxMax = terms[term].max;
+                        
+                    }    
+                }    
+            }
+        }
+	
+		
+        
+    });
+	
+    console.log("DONE reading the input file = "+data.length); 
+
+});
+	
+   
+var frequency={};
+var dataArray=[];
+var Word_frequency=[];
+
+var Yearly_data=[];
+var dataAll={};
+
+// Parse the date / time
+var parseDate2 = d3.time.format("%m-%Y").parse;
+
+
+function OnSelectedIndexChange(){
+	
+	var e = document.getElementById("ddlViewBy");
+	var strUser = e.options[e.selectedIndex].text;
+	var IndexValue=e.options[e.selectedIndex].value;
+	words=[];
+	Yearly_data={};
+	Word_frequency=[];
+	if(IndexValue!=0){
+	var count=0;
+	frequency=[];
+	var data=[];
+	var array_count=0;
+	for(var term in terms){
+		for(var i=0;i<12;i++){
+			var year_month=strUser+'_'+i;
+			if(terms[term][year_month]){
+				//console.log(terms[term][year_month]);
+				count+=terms[term][year_month];
+			}
+		}
+		data.push(term);
+		data.push(count);
+		frequency.push(data);
+		data=[];
+		count=0;
+	}
+		
+		frequency.sort(function(a,b){
+			return d3.descending(a[1], b[1]);
+		
+		})
+	
+	
+	for(var i=0;i<50;i++){
+		words.push(frequency[i][0]);
+		if(Word_frequency[frequency[i][0]]==undefined)
+			Word_frequency[frequency[i][0]]=[];
+		Word_frequency[frequency[i][0]].push(frequency[i][1]);
+	}
+	//console.log(words);
+	}
+	showNewWords(myWordCloud);
+	count=0;
+	for(var term in words){
+		if(Yearly_data[words[term]]==undefined)
+			Yearly_data[words[term]]=[];
+		for(var year=0;year<12;year++){
+			var year_month=strUser+'_'+year;
+			if(Yearly_data[words[term]][[count]]==undefined)
+				Yearly_data[words[term]][[count]]=[];
+			Yearly_data[words[term]][count]=new Object();
+			Yearly_data[words[term]][count].month=year+1;
+			Yearly_data[words[term]][count].Year=strUser;
+			Yearly_data[words[term]][count].Frequency=terms[words[term]][year_month];
+			Yearly_data[words[term]][count].value=words[term];
+			count++;
+		}
+			dataAll[words[term]]=Yearly_data[words[term]];
+			count=0;
+		}
+		for(var term in words){
+		Yearly_data[words[term]].forEach(function(d){
+			d.date = parseDate2(d.month+"-"+d.Year);
+			d.Frequency=d.Frequency;
+			d.value=d.value;
+		});
+		}
+		svg.append("defs").append("clipPath")
+    .attr("id", "clip")
+  .append("rect")
+    .attr("width", width)
+    .attr("height", height);
+ 
+var focus = svg.append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      
+var context = svg.append("g")
+  .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+  
+  var color=d3.scale.category20();
+		var brush = d3.svg.brush()
+		.x(x2)
+		.on("brush", brush);
+		// Scale the range of the data
+		x.domain(d3.extent(dataAll[words[0]], function(d) { return d.date; }));
+		y.domain([0, 45]);
+		x2.domain(x.domain());
+		y2.domain(y.domain());
+		
+		var dataArray=[];
+		
+		svg.selectAll(".line").remove();
+		svg.selectAll("g.tick").remove();
+		
+			
+			
+		for(var i=0;i<words.length;i++){
+				
+			dataArray.push(Yearly_data[words[i]]);
+			// Add the valueline path.
+			}
+			focus.selectAll(".line")
+			.data(dataArray).enter()
+			.append("g")
+			.append("path")
+			.attr("class", "line")
+			.attr("stroke-width",2)
+			.attr("id",function(d){ return d[0].value; })
+			.style("display","none")
+			.attr("d",function(d){
+				return valueline(d);
+			})
+			.attr("clip-path", "url(#clip)");     
+		
+		
+		// Add the X Axis
+		focus.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis);
+
+		// Add the Y Axis
+		focus.append("g")
+			.attr("class", "y axis")
+			.call(yAxis);
+		
+			context.selectAll(".line")
+			.data(dataArray).enter()
+			.append("g")
+			.append("path")
+			.attr("class", "line")
+			.attr("stroke-width",2)
+			.attr("d",function(d){
+				return valueline2(d);
+			})
+			.attr("clip-path", "url(#clip)");
+			
+			// Add the X Axis
+		context.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height2 + ")")
+			.call(xAxis2);
+
+			// Add the Y Axis
+		context.append("g")
+        .attr("class", "x brush")
+        .call(brush)
+		.selectAll("rect")
+        .attr("y", -6)
+        .attr("height", height2 + 7);
+
+	
+}
+function brush() {
+		x.domain(brush.empty() ? x2.domain() : brush.extent());
+		focus.selectAll("path.line").attr("d",  function(d) {return valueline(d)});
+		focus.select(".x.axis").call(xAxis);
+		focus.select(".y.axis").call(yAxis);
+	}
+
+
+</script>
