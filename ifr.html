@@ -1,0 +1,21 @@
+<html>
+<style>
+#iframe{
+	width: 100%;
+	height: 100%;
+}
+</style>
+<body>
+	<div id="box">
+		<button onclick=show("relationship1.html")>Relationship</button>
+		<button onclick=show("wordle.html")>TimeSeries</button>
+	</div>
+<iframe id="iframe"></iframe>
+<script>
+function show(path){
+	document.getElementById("iframe").src = path;
+}
+</script>
+
+</body>
+</html>
