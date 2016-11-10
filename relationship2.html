@@ -69,7 +69,7 @@ function getValue()
 {
 	var temp;
 	term = document.getElementById("input").value;
-	console.log(term);
+	//console.log(term);
 	d3.selectAll("svg#arc").remove();
 	
 	rs = new Object();
@@ -80,9 +80,6 @@ function getValue()
 	calculateRelationships(term);
 
    generateLinks(term);
-
-	
-	
 }
 
 document.getElementById("input").value = term;
@@ -115,7 +112,6 @@ d3.tsv("wikinews.tsv", function(error, data_) {
 
 	generateLinks(term);
 
-	
 });
 
 function calculateRelationships(terms) {
@@ -145,7 +141,7 @@ function calculateRelationships(terms) {
 
 function generateLinks(term) {
 	var force = sortRelations(relationships[term]).slice(0,50);
-	console.log(force);
+	//console.log(force);
 	
 	var links = [];
 	var data=[];
@@ -159,7 +155,7 @@ function generateLinks(term) {
 	});
 	i=0;
 	
-	console.log(data);
+	//console.log(data);
 
 	force.forEach(function(f) {
 		tempNode.push({name:f.term, group:i});
@@ -206,16 +202,16 @@ function generateMoreLinks(data1){
 	  }
 	});
 	for(i=1;i<dataSet.length;i++){
-		var force = sortRelations(internalrelationships[dataSet[i]]).slice(0,5); //Shows only 10 words 
+		var force = sortRelations(internalrelationships[dataSet[i]]).slice(0,6); //Shows only 10 words 
 		//console.log(force);
 			
 	force.forEach(function(f) {
-			console.log("Source:"+data1[f.term]+"\ttarget"+data1[dataSet[i]]);
+			//console.log("Source:"+data1[f.term]+"\ttarget"+data1[dataSet[i]]);
 			if(data1[f.term]!=undefined)
 			tempLinks.push({source:data1[f.term], target:data1[dataSet[i]], value: f.freq});
 	});
 	}
-	console.log(tempLinks);
+	//console.log(tempLinks);
 }
 
 
@@ -337,8 +333,8 @@ function drawNodes(nodes) {
         .attr("cy", function(d, i) { return d.y; })
         .attr("r",  function(d, i) { return radius; })
         .style("fill",   function(d, i) { return color(d.group); })
-        .on("mouseover", function(d, i) { addTooltip(d3.select(this)); })
-        .on("mouseout",  function(d, i) { d3.select("#tooltip").remove(); });
+        .on("mouseover", function(d, i) { addTooltip(d3.select(this));MouseOver(d); })
+        .on("mouseout",  function(d, i) { d3.select("#tooltip").remove();MouseOut(d); });
 }
 
 // Draws nice arcs for each link on plot
@@ -362,7 +358,7 @@ function drawLinks(links) {
         .attr("transform", function(d, i) {
             // arc will always be drawn around (0, 0)
             // shift so (0, 0) will be between source and target
-			console.log(i);
+			//console.log(i);
             var xshift = d.source.x + (d.target.x - d.source.x) / 2;
             var yshift = yfixed;	
             return "translate(" + xshift + ", " + yshift + ")";
@@ -383,6 +379,46 @@ function drawLinks(links) {
             // return path for arc
             return arc(points);
         });
+}
+function MouseOver(d){
+	var list = new Object();
+        list[d.name] = new Object();
+
+        d3.selectAll("svg#arc").selectAll("path.link")
+            .style("stroke-opacity" , function(l) {  
+                if (l.source.name==d.name){
+                    if (!list[l.target.name]){
+                        list[l.target.name] = new Object();
+                        list[l.target.name].count=1; 
+                        list[l.target.name].year=l.m;  
+                        list[l.target.name].linkcount=l.count;    
+                    }    
+                      
+                    return 1;
+                }  
+                else if (l.target.name==d.name){
+                    if (!list[l.source.name]){
+                        list[l.source.name] = new Object();
+                        list[l.source.name].count=1; 
+                        list[l.source.name].year=l.m;  
+                        list[l.source.name].linkcount=l.count;  
+                    }    
+                    
+                    return 1;
+                }    
+                else
+                  return 0.01;  
+        });
+        nodes.style("fill-opacity" , function(n) {  
+            if (list[n.name])
+                return 1;
+            else
+              return 0.1;  
+            });
+}
+function MouseOut(d){
+	d3.selectAll("svg#arc").selectAll("path.link")
+            .style("stroke-opacity",1);
 }
 </script>
 
