@@ -3,58 +3,23 @@
 <head>
 	<title>Relationship</title>
 	<script src="https://d3js.org/d3.v3.min.js"></script>
+    <link href ="stylesheet" href="css/bootstrap.min.css">
+    <link href="style.css" rel="stylesheet" type="text/css">
 	
 </head>
 <body>
+<h2><center>Relationship Visualization</center></h2>
+<div style="float:left;position:relative;margin-left:-5px;">
+
+
+
 <div id="tfheader">
 		<div id="tfnewsearch" >
 		        <input type="text" id="input" value="" sclass="tftextinput" name="q" size="21" maxlength="120"><input type="submit" value="search" class="tfbutton" onclick="getValue()">
 		</div>
 	<div class="tfclear"></div>
 	</div>
-	<style>
-body {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 300;
-}
-
-b {
-    font-weight: 900;
-}
-
-.outline {
-    fill: none;
-    stroke: #888888;
-    stroke-width: 1px;
-}
-
-#tooltip {
-    font-size: 10pt;
-    font-weight: 900;
-
-    fill: #000000;
-    stroke: #ffffff;
-    stroke-width: 0.25px;
-}
-
-.node {
-    stroke: #ffffff;
-    stroke-weight: 1px;
-}
-
-.link {
-    fill: none;
-    stroke: #888888;
-    stroke-weight: 1px;
-    stroke-opacity: 0.5;
-}
-
-.highlight {
-    stroke: red;
-    stroke-weight: 4px;
-    stroke-opacity: 1.0;
-}
-</style>
+	
 <script>
 
 var term = "usa";
@@ -69,8 +34,14 @@ function getValue()
 {
 	var temp;
 	term = document.getElementById("input").value;
-	//console.log(term);
-	d3.selectAll("svg#arc").remove();
+	console.log(term);
+	d3.selectAll("svg#arc")
+      //  .transition() 
+      //  .delay(200)
+      //  .duration(300)
+        .remove();
+
+     //   console.log("hi");
 	
 	rs = new Object();
 	tempNode=[];
@@ -80,12 +51,15 @@ function getValue()
 	calculateRelationships(term);
 
    generateLinks(term);
+
+	
+	
 }
 
 document.getElementById("input").value = term;
 
 //function 
-//console.log(terms);
+//console.log(term);
 
 
 /*terms.forEach(function(t) {
@@ -96,6 +70,7 @@ document.getElementById("input").value = term;
 
 function sortRelations(obj) {
     var arr = []; 
+   // console.log(obj);
     for(var key in obj)
     	if (key != 'undefined')
     		arr.push({ 'term': key, 'freq': obj[key] });
@@ -112,12 +87,13 @@ d3.tsv("wikinews.tsv", function(error, data_) {
 
 	generateLinks(term);
 
+	
 });
 
 function calculateRelationships(terms) {
 	data.forEach(function(d) {
 	    //d.date = new Date(d["time"]);
-
+       // console.log(terms);
 	    var line = d["person"] + "|" + d["location"] + "|" + d["organization"] + "|" + d["miscellaneous"];
 	    var list = line.split("|");
 
@@ -134,6 +110,8 @@ function calculateRelationships(terms) {
 	    	else
 	    		relationships[terms][term]++;
 	    }
+
+//console.log(relationships[terms][term]);
 			 
 	});
 }
@@ -149,6 +127,7 @@ function generateLinks(term) {
 	
 	force.forEach(function(f){
 		//data.push(f.term);
+        //console.log(f);
 		if(data[f.term]==undefined)
 			data[f.term]=0;
 		data[f.term]=i++;
@@ -170,7 +149,7 @@ function generateLinks(term) {
 	
 	generateMoreLinks(data);
 	arcDiagram();
-	//console.log(dataSet);
+	//console.log(data);
 	
 	
 }
@@ -202,7 +181,7 @@ function generateMoreLinks(data1){
 	  }
 	});
 	for(i=1;i<dataSet.length;i++){
-		var force = sortRelations(internalrelationships[dataSet[i]]).slice(0,6); //Shows only 10 words 
+		var force = sortRelations(internalrelationships[dataSet[i]]).slice(0,5); //Shows only 10 words 
 		//console.log(force);
 			
 	force.forEach(function(f) {
@@ -261,6 +240,8 @@ function addTooltip(circle) {
     }
 }
 
+
+
 /* MAIN DRAW METHOD */
 
 // Draws an arc diagram for the provided undirected graph
@@ -290,7 +271,9 @@ function arcDiagram() {
     });
 
     // must be done AFTER links are fixed
-    linearLayout(tempNode);
+   linearLayout(tempNode);
+  //linearLayout();
+
 
     // draw links first, so nodes appear on top
     drawLinks(tempLinks);
@@ -333,8 +316,8 @@ function drawNodes(nodes) {
         .attr("cy", function(d, i) { return d.y; })
         .attr("r",  function(d, i) { return radius; })
         .style("fill",   function(d, i) { return color(d.group); })
-        .on("mouseover", function(d, i) { addTooltip(d3.select(this));MouseOver(d); })
-        .on("mouseout",  function(d, i) { d3.select("#tooltip").remove();MouseOut(d); });
+        .on("mouseover", function(d, i) { addTooltip(d3.select(this)); })
+        .on("mouseout",  function(d, i) { d3.select("#tooltip").remove(); });
 }
 
 // Draws nice arcs for each link on plot
@@ -358,7 +341,7 @@ function drawLinks(links) {
         .attr("transform", function(d, i) {
             // arc will always be drawn around (0, 0)
             // shift so (0, 0) will be between source and target
-			//console.log(i);
+		//	console.log(i);
             var xshift = d.source.x + (d.target.x - d.source.x) / 2;
             var yshift = yfixed;	
             return "translate(" + xshift + ", " + yshift + ")";
@@ -379,46 +362,6 @@ function drawLinks(links) {
             // return path for arc
             return arc(points);
         });
-}
-function MouseOver(d){
-	var list = new Object();
-        list[d.name] = new Object();
-
-        d3.selectAll("svg#arc").selectAll("path.link")
-            .style("stroke-opacity" , function(l) {  
-                if (l.source.name==d.name){
-                    if (!list[l.target.name]){
-                        list[l.target.name] = new Object();
-                        list[l.target.name].count=1; 
-                        list[l.target.name].year=l.m;  
-                        list[l.target.name].linkcount=l.count;    
-                    }    
-                      
-                    return 1;
-                }  
-                else if (l.target.name==d.name){
-                    if (!list[l.source.name]){
-                        list[l.source.name] = new Object();
-                        list[l.source.name].count=1; 
-                        list[l.source.name].year=l.m;  
-                        list[l.source.name].linkcount=l.count;  
-                    }    
-                    
-                    return 1;
-                }    
-                else
-                  return 0.01;  
-        });
-        nodes.style("fill-opacity" , function(n) {  
-            if (list[n.name])
-                return 1;
-            else
-              return 0.1;  
-            });
-}
-function MouseOut(d){
-	d3.selectAll("svg#arc").selectAll("path.link")
-            .style("stroke-opacity",1);
 }
 </script>
 
