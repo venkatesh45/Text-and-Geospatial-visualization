@@ -424,7 +424,9 @@ function drawLinks(links) {
 
             // return path for arc
             return arc(points);
-        });
+        })
+		.on("mouseover", MouseOverArc)
+		.on("mouseout", MouseOut );
 }
 function MouseOver(d){
 	var list = new Object();
@@ -465,6 +467,18 @@ function MouseOver(d){
 function MouseOut(d){
 	d3.selectAll("svg#arc").selectAll("path.link")
             .style("stroke-opacity",1);
+}
+
+function MouseOverArc(d){
+	var source=d.source.name;
+	var target=d.target.name;
+	d3.selectAll("svg#arc").selectAll("path.link")
+            .style("stroke-opacity" , function(l) {  
+                if (l.source.name==source&&l.target.name==target)
+					return 1;
+				else
+					return 0;
+			});
 }
 </script>
 
