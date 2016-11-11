@@ -1,0 +1,32 @@
+<html>
+<style>
+#iframe{
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+</style>
+
+<header>
+<h2><center>Text And Relationship Visualization</center></h2>
+
+<div style="float:right; position:relative;margin-left:-5px;">
+
+</header>
+
+
+<body>
+	<div id="box">
+		<button onclick=show("relationship1.html")>Relationship In Force Directed</button>
+		<button onclick=show("relationship2.html")>Relationship In Arc Diagram</button>
+		<button onclick=show("wordle.html")>TimeSeries</button>
+	</div>
+<iframe id="iframe"></iframe>
+<script>
+function show(path){
+	document.getElementById("iframe").src = path;
+}
+</script>
+
+</body>
+</html>
