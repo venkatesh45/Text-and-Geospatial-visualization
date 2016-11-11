@@ -37,5 +37,11 @@ The figure below shows a relationship between input term “usa” and the top 5
 <img width="1264" alt="screen shot 2016-11-11 at 9 14 08 am" src="https://cloud.githubusercontent.com/assets/20443585/20222810/5bbd442a-a7fc-11e6-9b3d-f978125b3be2.png">
 Since, there may be internal relationships between the top 50 terms as well, they are calculated and shown as below where the input term is “usa” and it has relationship with “barack obama” and “barack obama” itself has relationships to other terms.<br>
 <img width="1265" alt="screen shot 2016-11-11 at 9 17 54 am" src="https://cloud.githubusercontent.com/assets/20443585/20222831/79e7e6f8-a7fc-11e6-93d6-f66b0b08b139.png">
+Also, a one to one relationship between terms can be seen as follows where a source and target are connected by a link and their frequency of occurrence is also displayed:<br>
+<img width="1259" alt="screen shot 2016-11-11 at 9 18 24 am" src="https://cloud.githubusercontent.com/assets/20443585/20222903/bcd28c52-a7fc-11e6-8df9-638fc6b2da6f.png">
+<br>
+The overall mesh relationship between a word and the top 50 related words to it with the internal relations as well is shown as :<br>
+<img width="1276" alt="screen shot 2016-11-11 at 9 37 00 am" src="https://cloud.githubusercontent.com/assets/20443585/20222947/df10579a-a7fc-11e6-894f-2bd362e7b54f.png">
+
 
 
