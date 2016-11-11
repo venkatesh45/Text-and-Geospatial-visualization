@@ -59,9 +59,9 @@ Calculating the relationship between a specific word such as “America” and a
 Calculate internal relationships between an input term and all the words related to it: Venkatesh<br>
 Adding a search box to input any term and Connecting search box with the calculated relationship: Upama and Tahrima<br>
 Sample display of relationships between terms in force directed graph(though not included in the presentation): Upama and Tahrima<br>
-Display connected search box and calculated relationship in arc diagram: Upama and Tahrima<br>
-Add tooltip for the input term displayed in the arc diagram: Tahrima<br>
-Only show one arc when hovering over the arc diagram to see one to one relationship:Upama<br>
+Display connected search box and calculated relationship in arc diagram: Upama and Tahrima and Venkatesh<br>
+Add tooltip for the input term displayed in the arc diagram: Tahrima and Venkatesh<br>
+Only show one arc when hovering over the arc diagram to see one to one relationship:Upama and Venkatesh<br>
 
 Project Report: Upama<br>
 Display with appealing UI : Akhila<br>
