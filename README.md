@@ -43,25 +43,25 @@ The overall mesh relationship between a word and the top 50 related words to it 
 <img width="1276" alt="screen shot 2016-11-11 at 9 37 00 am" src="https://cloud.githubusercontent.com/assets/20443585/20222947/df10579a-a7fc-11e6-894f-2bd362e7b54f.png">
 
 
-Contributions of Each Member:
+Contributions of Each Member:<br>
 
-Venkatesh Papineni:
-1.Dynamic display of wordle
-2.Time Series Visualization of top 50 related words
-3.Addition of Dropbox with years to relate time series with top 50 input words
-4.Display tooltip for the time series and Wordle
-5.Arc Diagram
-6.Calculate internal relationship between terms.
-7.Add tooltip for the input term displayed in the arc diagram
-8.MouseOver on nodes in Arc Diagram
-9.MouseOver on arcs in Arc Diagram. 
+Venkatesh Papineni:<br>
+1.Dynamic display of wordle<br>
+2.Time Series Visualization of top 50 related words<br>
+3.Addition of Dropbox with years to relate time series with top 50 input words<br>
+4.Display tooltip for the time series and Wordle<br>
+5.Arc Diagram<br>
+6.Calculate internal relationship between terms.<br>
+7.Add tooltip for the input term displayed in the arc diagram<br>
+8.MouseOver on nodes in Arc Diagram<br>
+9.MouseOver on arcs in Arc Diagram. <br>
 
-Akhila:
-1.Initial Display of wordle
-2.Preprocessing data to find top 50 related words for based on different years, months and days
-3.Zoom and Slider for time series
-4.Display with appealing UI 
-5.Connection of Wordle with time series and dropbox to display top 50 words of the selected year from the dropbox in wordle and display time series when a word on the wordle is clicked
+Akhila:<br>
+1.Initial Display of wordle<br>
+2.Preprocessing data to find top 50 related words for based on different years, months and days<br>
+3.Zoom and Slider for time series<br>
+4.Display with appealing UI <br>
+5.Connection of Wordle with time series and dropbox to display top 50 words of the selected year from the dropbox in wordle and display time series when a word on the wordle is clicked<br>
 
 
 Relationship:<br>
