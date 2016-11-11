@@ -65,14 +65,14 @@ Akhila:<br>
 4.Display with appealing UI <br>
 5.Connection of Wordle with time series and dropbox to display top 50 words of the selected year from the dropbox in wordle and display time series when a word on the wordle is clicked<br>
 
-Upama:
+Upama:<br>
 1. Preprocessing data to find top 50 relationships with every word in the dataset.<br>
 2. Constructing the initial arc diagram showing top 50 related terms and their relationship.<br>
 3. Implemented dynamic filtering on force directed graph.<br>
 4. Adding a search box to input any term and Connecting search box with the calculated relationship.<br>
 5. Implemented toggle view to show wordle and relationship with button. <br>
 
-Tahrima:
+Tahrima:<br>
 1. Preprocessing data to find top 50 relationships with every word in the dataset.<br>
 2. Constructing the force directed graph showing top 50 related terms and their relationship. <br>
 3. Modified professors code to get all the terms and their top 50 relations and visualized them in force directed graph.<br> 
