@@ -42,8 +42,9 @@ Also, a one to one relationship between terms can be seen as follows where a sou
 The overall mesh relationship between a word and the top 50 related words to it with the internal relations as well is shown as :<br>
 <img width="1276" alt="screen shot 2016-11-11 at 9 37 00 am" src="https://cloud.githubusercontent.com/assets/20443585/20222947/df10579a-a7fc-11e6-894f-2bd362e7b54f.png">
 
-
+![1](https://cloud.githubusercontent.com/assets/5343403/20227060/509464ca-a810-11e6-8e2e-9ba927013ab3.jpg)<br>
 Contributions of Each Member:<br>
+
 
 Venkatesh Papineni:<br>
 1.Dynamic display of wordle<br>
