@@ -157,7 +157,7 @@ function wordCloud(selector) {
             .text(function(d) { return d.text; })
 			.on('mousemove', function(d) {
 					
-					mouse = d3.mouse(svg1.node()).map(function(d) {
+				var	mouse = d3.mouse(svg1.node()).map(function(d) {
                      return parseInt(d);
                     });
 					var xCordinate=d3.mouse(this)[0]+1200;
