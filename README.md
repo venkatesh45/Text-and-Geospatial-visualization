@@ -25,3 +25,8 @@ A click on the year 2008 reveals that barack obama was a popular term as barack 
 A click on the year 2012 reveals that olympics was a popular term as the summer olympics was held in the year 2012.
 <br>
 <img width="1259" alt="screen shot 2016-11-11 at 8 50 49 am" src="https://cloud.githubusercontent.com/assets/20443585/20222709/fc9ffb54-a7fb-11e6-82e7-945a0db35aca.png">
+The second part is the visualization of the relationship between the various terms in the provided dataset.<br>
+The preprocessing of the relationship dataset was done as follows:<br>
+Each line was taken as a row with multiple possible relationships hence, there could be multiple permutations of the words in the same rows. Each row in the dataset contains 6 categories with a null “source” category hence each category was combined using a “|” and then split into individual words with the “|” itself.<br> 
+A snippet of the first row of the dataset is given below:<br>
+<img width="846" alt="screen shot 2016-11-11 at 9 08 12 am" src="https://cloud.githubusercontent.com/assets/20443585/20222760/2a6d8cea-a7fc-11e6-89c6-8a24349b12bf.png">
