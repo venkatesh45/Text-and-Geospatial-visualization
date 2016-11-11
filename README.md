@@ -30,3 +30,10 @@ The preprocessing of the relationship dataset was done as follows:<br>
 Each line was taken as a row with multiple possible relationships hence, there could be multiple permutations of the words in the same rows. Each row in the dataset contains 6 categories with a null “source” category hence each category was combined using a “|” and then split into individual words with the “|” itself.<br> 
 A snippet of the first row of the dataset is given below:<br>
 <img width="846" alt="screen shot 2016-11-11 at 9 08 12 am" src="https://cloud.githubusercontent.com/assets/20443585/20222760/2a6d8cea-a7fc-11e6-89c6-8a24349b12bf.png">
+As the data shows above, different categories have spaces between them but different words in the same category have a “|” between them so to separate all the words, each category of each row was combined using  a “|” and then split into individual words. After that, an input term from the search box is taken as a keyword to find the words that have relationships with it. Hence, the dataset is checked by each row to find whether the word exists in the row and  if it exists then find relationships for it.<br>
+Hence, in this way the relationships for the input term from the search box was found and the preprocessing of the data is completed.<br>
+The relationships are then plotted in an arc diagrams.<br>
+The figure below shows a relationship between input term “usa” and the top 50 related terms to “usa”.<br>
+<img width="1264" alt="screen shot 2016-11-11 at 9 14 08 am" src="https://cloud.githubusercontent.com/assets/20443585/20222810/5bbd442a-a7fc-11e6-9b3d-f978125b3be2.png">
+
+
