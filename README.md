@@ -1,5 +1,8 @@
 # Text-and-Geospatial-visualization
 Data Visualization Project Report<br>
+
+
+
 The second course project for Data Visualization consists of Text and Geospatial visualization of 
 data collected from political blog “Wikinews” for a time span of 2006-2015. 
 The data “Wikinews” consisted of words for four different categories that 
