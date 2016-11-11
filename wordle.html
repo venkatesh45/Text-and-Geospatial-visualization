@@ -17,7 +17,7 @@
   <option value="10">2013</option>
   <option value="11" >2014</option>
   <option value="12">2015</option>
-
+  <option value="12">2016</option>
   
 </select>
 
@@ -29,17 +29,32 @@
 body { font: 12px Arial;}
 
 path { 
-    stroke: brown;
+    stroke: blue;
+    //stroke-width: 1;
     fill: none;
 }
 
 .axis path,
 .axis line {
     fill: none;
-    stroke: brown;
+    stroke: grey;
     stroke-width: 1;
-    
+    shape-rendering: crispEdges;
 }
+.background {
+  fill: none;
+  pointer-events: all;
+}
+.province {
+        fill: #fff;
+        stroke: #000;
+        stroke-width: 1px;
+    }
+	
+    .province:hover {
+        fill: #666;
+		
+    }
     .hidden {
         display: none;
     }
@@ -54,7 +69,21 @@ path {
     }
 body { font: 12px Arial;}
 
+path { 
+    stroke: blue;
+   // stroke-width: 1;
+    fill: none;
+}
 
+
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    //stroke-width: 1;
+    shape-rendering: crispEdges;
+}
 
 svg {
   font: 10px sans-serif;
@@ -101,10 +130,15 @@ var x = d3.time.scale().range([0, width]),
     y2 = d3.scale.linear().range([height2, 0]);
 
 // Define the axes
-var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(d3.time.months),
+var xAxis = d3.svg.axis().scale(x).orient("bottom"),
     xAxis2 = d3.svg.axis().scale(x2).orient("bottom"),
     yAxis = d3.svg.axis().scale(y).orient("left");
-	    
+	
+
+
+
+
+    
 // Define the line
 var valueline = d3.svg.line()
     .x(function(d) { return x(d.date); })
@@ -119,10 +153,17 @@ var svg = d3.select("body")
     .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom);
+
+		
+
+  
   
 </script>
 
  <script>
+
+//Simple animated example of d3-cloud - https://github.com/jasondavies/d3-cloud
+//Based on https://github.com/jasondavies/d3-cloud/blob/master/examples/simple.html
 
 var tooltip = d3.select('body').append('div')
             .attr('class', 'hidden tooltip'),
@@ -145,7 +186,7 @@ function wordCloud(selector) {
     function draw(words) {
         var cloud = svg1.selectAll("g text")
                         .data(words, function(d) { return d.text; })
-	var mouse;
+
         //Entering words
         cloud.enter()
             .append("text")
@@ -156,17 +197,18 @@ function wordCloud(selector) {
             .attr('font-size', 1)
             .text(function(d) { return d.text; })
 			.on('mousemove', function(d) {
+<<<<<<< HEAD
 					
 				var	mouse = d3.mouse(svg1.node()).map(function(d) {
+=======
+					var mouse = d3.mouse(svg1.node()).map(function(d) {
+>>>>>>> parent of 72ad335... Final update on Wordle
                      return parseInt(d);
                     });
-					var xCordinate=d3.mouse(this)[0]+1200;
-					var yCordinate=d3.mouse(this)[1]+500;
                     tooltip.classed('hidden', false)
-						.attr('cursor', 'pointer')
-                        .attr('style', 'left:' + xCordinate +
-                                'px; top:' + yCordinate + 'px')
-                        .html("Word:"+d.text+"<br />Frequency:"+Word_frequency[d.text]);
+                        .attr('style', 'left:' + (mouse[0]) +
+                                'px; top:' + (mouse[1]) + 'px')
+                        .html("Word:"+d.text+"\nFrequency:"+Word_frequency[d.text]);
                 })
                 .on('mouseout', function() {
                     tooltip.classed('hidden', true);
@@ -202,7 +244,7 @@ function wordCloud(selector) {
         //The outside world will need to call this function, so make it part
         // of the wordCloud return value.
         update: function(words) {
-            d3.layout.cloud().size([600,600])
+            d3.layout.cloud().size([500, 500])
                 .words(words)
                 .padding(5)
                 .rotate(function() { return ~~(Math.random() * 2) * 90; })
@@ -226,22 +268,20 @@ function clicked(d) {
 function reset(d) {
   active.classed("active", false);
   active = d3.select(null);
-  document.getElementById(d.text).style.display = "none";
+  document.getElementById(d.value).style.display = "none";
 }
 
 //Some sample data - http://en.wikiquote.org/wiki/Opening_lines
 
 
 var words=[];
-var gPopularFiftyWordsFinal=[];
-var gPopularWords=[];
 //Prepare one of the sample sentences by removing punctuation,
 // creating an array of words and computing a random size attribute.
 function getWords(i) {
-	
-	
-    return i.map(function(d) {
-                return {text: d, size: Math.max( Math.random() * 40, Word_frequency[d][0]/5)};
+    return words
+            
+            .map(function(d) {
+                return {text: d, size: 10 + Math.random() * 60};
             })
 }
 
@@ -252,7 +292,7 @@ function showNewWords(vis, i) {
     
 	
     vis.update(getWords(words))
-    //setTimeout(function() { showNewWords(myWordCloud)}, 10000)	
+    //setTimeout(function() { showNewWords(words)}, 2000)	
 }
 
 //Create a new instance of the word cloud visualisation.
@@ -269,24 +309,8 @@ showNewWords(myWordCloud);
 var terms;
 var termMaxMax;
 var sourceList = {};
-var minYear=2004;
+var minYear=2006;
 var maxYear=2015;
-var data, data2;
-
-var numSecondADay = 24*60*60;
-var numSecondAMonth = 30*numSecondADay;
-
-var numMonth = 12*(maxYear-minYear);
-
-
-var numSource = {};
-var maxCount = {}; // contain the max frequency for 4 categories
-
-var termArray, termArray2, termArray3;
-var relationship;
-var termMaxMax2;
-
-var searchTerm ="";
 
 d3.tsv("wikinews.tsv", function(error, data_) {
       if (error) throw error;
@@ -422,7 +446,6 @@ d3.tsv("wikinews.tsv", function(error, data_) {
     });
 	
     console.log("DONE reading the input file = "+data.length); 
-	
 
 });
 	
@@ -433,9 +456,6 @@ var Word_frequency=[];
 
 var Yearly_data=[];
 var dataAll={};
-
-
-
 
 // Parse the date / time
 var parseDate2 = d3.time.format("%m-%Y").parse;
@@ -481,7 +501,7 @@ function OnSelectedIndexChange(){
 			Word_frequency[frequency[i][0]]=[];
 		Word_frequency[frequency[i][0]].push(frequency[i][1]);
 	}
-	console.log(words);
+	//console.log(words);
 	}
 	showNewWords(myWordCloud);
 	count=0;
@@ -495,9 +515,6 @@ function OnSelectedIndexChange(){
 			Yearly_data[words[term]][count]=new Object();
 			Yearly_data[words[term]][count].month=year+1;
 			Yearly_data[words[term]][count].Year=strUser;
-			if(terms[words[term]][year_month]==undefined)
-				Yearly_data[words[term]][count].Frequency=0;
-			else	
 			Yearly_data[words[term]][count].Frequency=terms[words[term]][year_month];
 			Yearly_data[words[term]][count].value=words[term];
 			count++;
@@ -524,16 +541,15 @@ var focus = svg.append("g")
 var context = svg.append("g")
   .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
   
-  
+  var color=d3.scale.category20();
+		var brush = d3.svg.brush()
+		.x(x2)
+		.on("brush", brush);
 		// Scale the range of the data
 		x.domain(d3.extent(dataAll[words[0]], function(d) { return d.date; }));
 		y.domain([0, 45]);
 		x2.domain(x.domain());
 		y2.domain(y.domain());
-		var color=d3.scale.category20();
-		var brush = d3.svg.brush()
-		.x(x2)
-		.on("brush", brush);
 		
 		var dataArray=[];
 		
@@ -558,35 +574,7 @@ var context = svg.append("g")
 			.attr("d",function(d){
 				return valueline(d);
 			})
-			.attr("clip-path", "url(#clip)")
-			.on("mouseover",function(d1){
-				var mouse = d3.mouse(svg.node()).map(function(d) {
-                     return parseInt(d);
-                    });
-					var xCoordinate = d3.mouse(this)[0];
-					var domainX = x.invert(xCoordinate);
-					var Year=1900+domainX.getYear();
-					var yCoordinate = d3.mouse(this)[1];
-					var domainY = y.invert(yCoordinate);
-					var rate=domainY.toFixed(1);
-					
-                    tooltip.classed('hidden', false)
-                        .attr('style', 'left:' + (mouse[0]) +
-                                'px; top:' + (mouse[1]) + 'px')
-                        .html(d1[0].value+"<br />Year:"+Year+"<br />Rate:"+rate);
-				focus.selectAll(".line")
-					.attr("stroke-opacity",function(d2){
-						if(d1==d2)
-							return 1;
-						else 
-							return 0.01;
-					});
-			})
-			.on("mouseout",function(d1){
-				tooltip.classed('hidden',true);
-				focus.selectAll(".line")
-					.attr("stroke-opacity",1);
-			});     
+			.attr("clip-path", "url(#clip)");     
 		
 		
 		// Add the X Axis
@@ -606,8 +594,6 @@ var context = svg.append("g")
 			.append("path")
 			.attr("class", "line")
 			.attr("stroke-width",2)
-			.attr("id",function(d){ return d[0].value; })
-			.style("display","none")
 			.attr("d",function(d){
 				return valueline2(d);
 			})
@@ -627,29 +613,14 @@ var context = svg.append("g")
         .attr("y", -6)
         .attr("height", height2 + 7);
 
-	function brush() {
+	
+}
+function brush() {
 		x.domain(brush.empty() ? x2.domain() : brush.extent());
-		focus.selectAll(".line").attr("d",  function(d) {return valueline(d)});
+		focus.selectAll("path.line").attr("d",  function(d) {return valueline(d)});
 		focus.select(".x.axis").call(xAxis);
 		focus.select(".y.axis").call(yAxis);
 	}
-	svg.selectAll(".y axis text")  // select all the text elements for the xaxis
-          .attr("transform", function(d) {
-             
-             return "translate(" + this.getBBox().height*-6 + "," + this.getBBox().height + ")";
-         });
-
-//------appending the text-------
-svg.append("text")
-            .attr("text-anchor", "margin-right")  // this makes it easy to centre the text as the transform is applied to the anchor
-            .attr("transform", "rotate(-90)")
-            .attr("y", 45)
-            .attr("x", -180)
-      .attr("dy", "0.71em")
-      .attr("fill", "#000")
-              // text is drawn off the screen top left, move down and out and rotate
-            .text("Frequency");
-}
 
 
 </script>
