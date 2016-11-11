@@ -24,5 +24,4 @@ A click on the year 2008 reveals that barack obama was a popular term as barack 
 <img width="1259" alt="screen shot 2016-11-11 at 8 51 56 am" src="https://cloud.githubusercontent.com/assets/20443585/20222613/9ba32240-a7fb-11e6-8914-8769f86e0f1e.png">
 A click on the year 2012 reveals that olympics was a popular term as the summer olympics was held in the year 2012.
 <br>
-<img width="1263" alt="screen shot 2016-11-11 at 8 48 39 am" src="https://cloud.githubusercontent.com/assets/20443585/20222678/d38f8586-a7fb-11e6-89cd-0746fe2c1e6c.png">
-
+<img width="1259" alt="screen shot 2016-11-11 at 8 50 49 am" src="https://cloud.githubusercontent.com/assets/20443585/20222709/fc9ffb54-a7fb-11e6-82e7-945a0db35aca.png">
