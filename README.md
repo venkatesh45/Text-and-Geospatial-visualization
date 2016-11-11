@@ -65,15 +65,19 @@ Akhila:<br>
 4.Display with appealing UI <br>
 5.Connection of Wordle with time series and dropbox to display top 50 words of the selected year from the dropbox in wordle and display time series when a word on the wordle is clicked<br>
 
+Upama:
+1. Preprocessing data to find top 50 relationships with every word in the dataset.
+2. Constructing the initial arc diagram showing top 50 related terms and their relationship. 
+3. Implemented dynamic filtering on force directed graph with own code. 
+4. Adding a search box to input any term and Connecting search box with the calculated relationship.
+5. Implemented toggle view to show wordle and relationship with button. 
 
-Relationship:<br>
-Calculating the relationship between a specific word such as “America” and all the words related to it: Upama and Tahrima<br>
-Calculate internal relationships between an input term and all the words related to it: Venkatesh<br>
-Adding a search box to input any term and Connecting search box with the calculated relationship: Upama and Tahrima<br>
-Sample display of relationships between terms in force directed graph(though not included in the presentation): Upama and Tahrima<br>
-Display connected search box and calculated relationship in arc diagram: Upama and Tahrima and Venkatesh<br>
-Add tooltip for the input term displayed in the arc diagram: Tahrima and Venkatesh<br>
-Only show one arc when hovering over the arc diagram to see one to one relationship:Upama and Venkatesh<br>
+Tahrima:
+1. Preprocessing data to find top 50 relationships with every word in the dataset.
+2. Constructing the force directed graph showing top 50 related terms and their relationship. 
+3. Modified professors code to get all the terms and their top 50 relations and visualized them in force directed graph. 
+4. Implemented showing relationship with force directed graph of a particular node on single click in arc diagram. 
+5. Worked on search box and its function in the relationship graph. 
 
 Project Report: Upama<br>
 Combine the time series and relationship to display together: All team members<br>
