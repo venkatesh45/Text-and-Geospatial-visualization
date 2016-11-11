@@ -46,8 +46,8 @@ The duties of the each student in our group is outlined as follows:<br>
 Time Series: <br>
 Initial Display of wordle: Akhila<br>
 Dynamic display of wordle: Venkatesh<br>
-Preprocessing data to find top 50 related words for based on different years, months and days : Venkatesh
-Zoom and Slider for time series : Venkatesh
+Preprocessing data to find top 50 related words for based on different years, months and days : Venkatesh<br>
+Zoom and Slider for time series : Venkatesh<br>
 Time Series Visualization of top 50 related words : Venkatesh<br>
 Addition of Dropbox with years to relate time series with top 50 input words: Venkatesh and Akhila<br>
 Connection of Wordle with time series and dropbox to display top 50 words of the selected year from the dropbox in wordle and display time series when a word on the wordle is clicked: Venkatesh and Akhila<br>
