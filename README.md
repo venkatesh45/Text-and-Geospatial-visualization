@@ -42,28 +42,28 @@ Also, a one to one relationship between terms can be seen as follows where a sou
 The overall mesh relationship between a word and the top 50 related words to it with the internal relations as well is shown as :<br>
 <img width="1276" alt="screen shot 2016-11-11 at 9 37 00 am" src="https://cloud.githubusercontent.com/assets/20443585/20222947/df10579a-a7fc-11e6-894f-2bd362e7b54f.png">
 
-The duties of the each student in our group is outlined as follows:
-Time Series: 
-Initial Display of wordle: Akhila
-Dynamic display of wordle: Venkatesh
-Time Series Visualization of top 50 related words : Venkatesh
-Addition of Dropbox with years to relate time series with top 50 input words: Venkatesh and Akhila
-Connection of Wordle with time series and dropbox to display top 50 words of the selected year from the dropbox in wordle and display time series when a word on the wordle is clicked: Venkatesh and Akhila
-Display tooltip for the time series: Venkatesh
+The duties of the each student in our group is outlined as follows:<br>
+Time Series: <br>
+Initial Display of wordle: Akhila<br>
+Dynamic display of wordle: Venkatesh<br>
+Time Series Visualization of top 50 related words : Venkatesh<br>
+Addition of Dropbox with years to relate time series with top 50 input words: Venkatesh and Akhila<br>
+Connection of Wordle with time series and dropbox to display top 50 words of the selected year from the dropbox in wordle and display time series when a word on the wordle is clicked: Venkatesh and Akhila<br>
+Display tooltip for the time series: Venkatesh<br>
 
 
-Relationship:
-Calculating the relationship between a specific word such as “America” and all the words related to it: Upama and Tahrima
-Calculate internal relationships between an input term and all the words related to it: Venkatesh
-Adding a search box to input any term and Connecting search box with the calculated relationship: Upama and Tahrima
-Sample display of relationships between terms in force directed graph(though not included in the presentation): Upama and Tahrima
-Display connected search box and calculated relationship in arc diagram: Upama and Tahrima
-Add tooltip for the input term displayed in the arc diagram: Tahrima
-Only show one arc when hovering over the arc diagram to see one to one relationship:Upama
+Relationship:<br>
+Calculating the relationship between a specific word such as “America” and all the words related to it: Upama and Tahrima<br>
+Calculate internal relationships between an input term and all the words related to it: Venkatesh<br>
+Adding a search box to input any term and Connecting search box with the calculated relationship: Upama and Tahrima<br>
+Sample display of relationships between terms in force directed graph(though not included in the presentation): Upama and Tahrima<br>
+Display connected search box and calculated relationship in arc diagram: Upama and Tahrima<br>
+Add tooltip for the input term displayed in the arc diagram: Tahrima<br>
+Only show one arc when hovering over the arc diagram to see one to one relationship:Upama<br>
 
-Project Report: Upama
-Display with appealing UI : Akhila
-Combine the time series and relationship to display together: All team members
+Project Report: Upama<br>
+Display with appealing UI : Akhila<br>
+Combine the time series and relationship to display together: All team members<br>
 
 
 
