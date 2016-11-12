@@ -1,9 +1,10 @@
 # Text-and-Geospatial-visualization
 Data Visualization Project Report<br>
 
-The video link is as follows:
-https://youtu.be/GBmQK8aGlJY<br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/JsQTpCo-DPk" frameborder="0" allowfullscreen></iframe>
+The video link is as follows:<br>
+[![ScreenShot](http://img.youtube.com/vi/aG3mjz2kacg/0.jpg)]
+https://youtu.be/aG3mjz2kacg)
+
 
 The second course project for Data Visualization consists of Text and Geospatial visualization of 
 data collected from political blog “Wikinews” for a time span of 2006-2015. 
