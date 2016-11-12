@@ -73,7 +73,7 @@ Akhila:<br>
 Upama:<br>
 1. Preprocessing data to find top 50 relationships with every word in the dataset.<br>
 2. Constructing the initial arc diagram showing top 50 related terms and their relationship.<br>
-3. Implemented dynamic filtering on force directed graph.<br>
+3. Implemented dynamic filtering on force directed graph and visualized it.<br>
 4. Adding a search box to input any term and Connecting search box with the calculated relationship.<br>
 5. Implemented toggle view to show wordle and relationship with button. <br>
 
