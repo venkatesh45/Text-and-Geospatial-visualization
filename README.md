@@ -3,7 +3,7 @@ Data Visualization Project Report<br>
 
 The video link is as follows:<br>
 [![ScreenShot](http://img.youtube.com/vi/aG3mjz2kacg/0.jpg)]
-https://youtu.be/aG3mjz2kacg)
+(https://youtu.be/aG3mjz2kacg)
 
 
 The second course project for Data Visualization consists of Text and Geospatial visualization of 
