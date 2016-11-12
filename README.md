@@ -68,8 +68,7 @@ Akhila:<br>
 1.Initial Display of wordle<br>
 2.Preprocessing data to find top 50 related words for based on different years, months and days<br>
 3.Zoom and Slider for time series<br>
-4.Display with appealing UI <br>
-5.Connection of Wordle with time series and dropbox to display top 50 words of the selected year from the dropbox in wordle and display time series when a word on the wordle is clicked<br>
+4.Connection of Wordle with time series and dropbox to display top 50 words of the selected year from the dropbox in wordle and display time series when a word on the wordle is clicked<br>
 
 Upama:<br>
 1. Preprocessing data to find top 50 relationships with every word in the dataset.<br>
